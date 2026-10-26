@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>강화도 1일 워크숍 & 나들이 세부 일정표</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Pretendard -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              800: '#0c4a6e',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; font-size: 12px; }
+      .shadow-sm, .shadow-md, .shadow-xl { box-shadow: none !important; }
+      .page-break { page-break-before: always; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-sky-500 selection:text-white">
+
+  <!-- 상단 네비게이션 & 빠른 액션 -->
+  <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-600 to-cyan-500 flex items-center justify-center text-white shadow-sm">
+          <i data-lucide="map-pin" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight">강화도 1일 워크숍 & 나들이</h1>
+          <p class="text-xs text-slate-500 hidden sm:block">전등사 · 우리마을 · 조양방직 · 농가의식탁</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-2 no-print">
+        <a href="#budget-section" class="px-3 py-1.5 text-xs sm:text-sm font-semibold text-sky-700 bg-sky-50 hover:bg-sky-100 rounded-lg transition-colors flex items-center space-x-1">
+          <i data-lucide="calculator" class="w-4 h-4"></i>
+          <span>예산 계산기</span>
+        </a>
+        <button onclick="window.print()" class="px-3 py-1.5 text-xs sm:text-sm font-semibold text-white bg-slate-800 hover:bg-slate-900 rounded-lg transition-colors shadow-sm flex items-center space-x-1.5">
+          <i data-lucide="printer" class="w-4 h-4"></i>
+          <span>일정표 인쇄</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 컨테이너 -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-8">
+
+    <!-- 상단 대시보드 헤더 카드 -->
+    <section class="bg-gradient-to-br from-slate-900 via-slate-800 to-sky-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+      <!-- 배경 장식 -->
+      <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative z-10 space-y-4">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-300 border border-sky-400/30">
+            <i data-lucide="calendar" class="w-3.5 h-3.5 mr-1.5"></i> 당일 일정
+          </span>
+          <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+            <i data-lucide="users" class="w-3.5 h-3.5 mr-1.5"></i> 15명 전원 종일 동행
+          </span>
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/25 text-indigo-300 border border-indigo-400/40">
+            <i data-lucide="check-circle" class="w-3.5 h-3.5 mr-1.5"></i> 15명 전원 회비 납부 (면제자 없음)
+          </span>
+        </div>
+
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">강화도 역사 탐방 & 힐링 나들이</h2>
+          <p class="text-slate-300 text-sm sm:text-base mt-1 max-w-2xl leading-relaxed">
+            길상면의 고즈넉한 사찰 산책과 우리마을 방문, 강화읍의 레트로 감성 조양방직과 오후 탐방, 그리고 정갈한 자연식 만찬(15인 전원)까지 함께하는 1일 통합 동선입니다.
+          </p>
+        </div>
+
+        <!-- 퀵 요약 스탯 -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-3.5 backdrop-blur-sm">
+            <div class="text-xs text-slate-400">출발 시간</div>
+            <div class="text-lg font-bold text-white mt-0.5">08:30</div>
+            <div class="text-[11px] text-slate-300">서울/집결지 출발</div>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-3.5 backdrop-blur-sm">
+            <div class="text-xs text-slate-400">점심 식사</div>
+            <div class="text-lg font-bold text-amber-300 mt-0.5">풀하우스</div>
+            <div class="text-[11px] text-slate-300">메밀막국수 & 전병 (15인)</div>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-3.5 backdrop-blur-sm">
+            <div class="text-xs text-slate-400">오후 티타임</div>
+            <div class="text-lg font-bold text-sky-300 mt-0.5">조양방직</div>
+            <div class="text-[11px] text-slate-300">커피 & 베이커리 (15인)</div>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-3.5 backdrop-blur-sm">
+            <div class="text-xs text-slate-400">저녁 만찬</div>
+            <div class="text-lg font-bold text-emerald-300 mt-0.5">농가의 식탁</div>
+            <div class="text-[11px] text-slate-300">구운야채 불고기 & 파스타 (15인)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2단 레이아웃: 타임라인 (좌 7) + 실시간 예산 (우 5) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+      <!-- 좌측: 타임라인 일정표 (lg:col-span-7) -->
+      <section class="lg:col-span-7 space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+          <div class="flex items-center space-x-2">
+            <div class="p-2 bg-sky-100 text-sky-700 rounded-lg">
+              <i data-lucide="clock" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">당일 세부 일정표</h3>
+          </div>
+          <span class="text-xs text-slate-500">순차적 진행 (15인 전원 코스)</span>
+        </div>
+
+        <!-- 타임라인 아이템 리스트 -->
+        <div class="relative border-l-2 border-sky-100 ml-4 pl-6 space-y-6">
+
+          <!-- 1. 출발 -->
+          <div class="relative group">
+            <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-white border-4 border-slate-400 group-hover:border-sky-500 transition-colors"></div>
+            <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm hover:border-sky-200 transition-all">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 text-xs font-bold rounded-md bg-slate-100 text-slate-700">08:30 ~ 10:00</span>
+                <span class="text-xs text-slate-400">차량 약 90분</span>
+              </div>
+              <h4 class="text-base font-bold text-slate-800 mt-2">집결 및 강화도 이동</h4>
+              <p class="text-xs text-slate-600 mt-1">초지대교를 경유하여 강화도 남단 길상면 전등사 주차장으로 이동</p>
+            </div>
+          </div>
+
+          <!-- 2. 전등사 -->
+          <div class="relative group">
+            <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-white border-4 border-emerald-500"></div>
+            <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm hover:border-emerald-200 transition-all">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 text-xs font-bold rounded-md bg-emerald-50 text-emerald-700">10:00 ~ 11:20 (80분)</span>
+                <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">관람료 무료</span>
+              </div>
+              <h4 class="text-base font-bold text-slate-800 mt-2 flex items-center">
+                <span>전등사 경내 및 숲길 산책 (15인)</span>
+              </h4>
+              <p class="text-xs text-slate-600 mt-1">대웅보전, 정족산사고, 삼림욕 산책로 둘러보기 (소나무 숲 피톤치드 힐링)</p>
+              <div class="mt-2 text-[11px] text-slate-500 bg-slate-50 p-2 rounded-lg">
+                💡 차량 주차비(대당 2,000~3,000원)만 별도 발생
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. 풀하우스 점심 -->
+          <div class="relative group">
+            <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-white border-4 border-amber-500"></div>
+            <div class="bg-amber-50/40 rounded-2xl p-4 border border-amber-200 shadow-sm">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 text-xs font-bold rounded-md bg-amber-100 text-amber-800">11:30 ~ 12:30 (60분)</span>
+                <span class="text-xs font-bold text-amber-700">점심 식사 (15인)</span>
+              </div>
+              <h4 class="text-base font-bold text-slate-900 mt-2 flex items-center justify-between">
+                <span>풀하우스 (전등사 동문 입구)</span>
+                <span class="text-xs font-semibold text-slate-500">이동: 차량 5분</span>
+              </h4>
+              <p class="text-xs text-slate-700 mt-1">시원하고 정갈한 메밀막국수 + 테이블별 메밀전병 및 만두 쉐어</p>
+              <div class="mt-2.5 flex items-center text-xs text-amber-900 font-medium">
+                <i data-lucide="check-circle" class="w-3.5 h-3.5 mr-1 text-amber-600"></i> 단체 15인 좌석 사전 예약 권장
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. 우리마을 방문 -->
+          <div class="relative group">
+            <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-white border-4 border-sky-500"></div>
+            <div class="bg-sky-50/50 rounded-2xl p-4 border border-sky-200 shadow-sm">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 text-xs font-bold rounded-md bg-sky-100 text-sky-800">12:45 ~ 14:00 (75분)</span>
+                <span class="px-2 py-0.5 text-xs font-bold rounded bg-sky-600 text-white">기관 방문</span>
+              </div>
+              <h4 class="text-base font-bold text-slate-900 mt-2">강화 우리마을 방문 및 일정</h4>
+              <p class="text-xs text-slate-700 mt-1 leading-relaxed">우리마을 기관 라운딩, 콩나물 생산시설 견학 및 기관장/처장님 주재 환담</p>
+              
+              <div class="mt-3 bg-white border border-sky-200 rounded-xl p-3 flex items-start space-x-2.5">
+                <div class="p-1.5 bg-sky-100 text-sky-700 rounded-lg shrink-0">
+                  <i data-lucide="info" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-sky-900">14:00 우리마을 일정 마무리 후 다음 장소로 이동</div>
+                  <div class="text-[11px] text-slate-600 mt-0.5">처장님 포함 <strong>15명 전원</strong>이 조양방직, 오후 탐방, 저녁 만찬까지 끝까지 함께합니다.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. 조양방직 -->
+          <div class="relative group">
+            <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-white border-4 border-indigo-500"></div>
+            <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm hover:border-indigo-200 transition-all">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 text-xs font-bold rounded-md bg-indigo-50 text-indigo-700">14:25 ~ 15:45 (80분)</span>
+                <span class="text-xs font-bold text-indigo-600">티타임 & 관람 (15인)</span>
+              </div>
+              <h4 class="text-base font-bold text-slate-800 mt-2 flex items-center justify-between">
+                <span>조양방직 카페 & 레트로 갤러리</span>
+                <span class="text-xs text-slate-400">차량 20~25분 이동</span>
+              </h4>
+              <p class="text-xs text-slate-600 mt-1">우리나라 최초 직물공장의 빈티지 미술관 감상, 15인 음료 및 베이커리 다과 휴식</p>
+            </div>
+          </div>
+
+          <!-- 6. 오후 탐방 옵션 비교 (15:45 ~ 17:15) -->
+          <div class="relative group">
+            <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-white border-4 border-purple-500"></div>
+            <div class="bg-slate-50 rounded-2xl p-4 border border-purple-200 shadow-sm space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 text-xs font-bold rounded-md bg-purple-100 text-purple-800">15:45 ~ 17:15 (90분)</span>
+                <span class="text-xs font-bold text-purple-600 bg-white px-2 py-0.5 rounded border border-purple-100">현장 선택 옵션</span>
+              </div>
+              <div>
+                <h4 class="text-base font-bold text-slate-900">오후 탐방: 옵션 1 vs 옵션 2</h4>
+                <p class="text-xs text-slate-500 mt-0.5">당일 날씨 및 참가자 피로도에 따라 선택하여 진행 (15명 동행)</p>
+              </div>
+
+              <!-- 옵션 선택 탭 버튼 -->
+              <div class="grid grid-cols-2 gap-2 pt-1">
+                <button type="button" id="tab-opt1" onclick="selectOption(1)" class="p-2.5 rounded-xl border text-left transition-all bg-white border-sky-500 shadow-sm">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-sky-700">옵션 1 (추천)</span>
+                    <i data-lucide="check" class="w-3.5 h-3.5 text-sky-600 opt1-check"></i>
+                  </div>
+                  <div class="text-xs font-bold text-slate-800 mt-1">원도심 도보 코스</div>
+                  <div class="text-[10px] text-slate-500 mt-0.5">성공회성당 · 용흥궁 · 고려궁지</div>
+                </button>
+
+                <button type="button" id="tab-opt2" onclick="selectOption(2)" class="p-2.5 rounded-xl border text-left transition-all bg-white/60 border-slate-200 opacity-70">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-600">옵션 2</span>
+                    <i data-lucide="check" class="w-3.5 h-3.5 text-transparent opt2-check"></i>
+                  </div>
+                  <div class="text-xs font-bold text-slate-800 mt-1">해안 둘레길 코스</div>
+                  <div class="text-[10px] text-slate-500 mt-0.5">광성보 (손돌목·용두돈대)</div>
+                </button>
+              </div>
+
+              <!-- 옵션 1 상세 카드 -->
+              <div id="desc-opt1" class="bg-white p-3 rounded-xl border border-sky-100 text-xs space-y-1.5">
+                <div class="font-bold text-slate-800 flex items-center text-sky-800">
+                  <i data-lucide="footprints" class="w-4 h-4 mr-1 text-sky-600"></i> 옵션 1: 조양방직 도보 연계 (차량 이동 불필요)
+                </div>
+                <p class="text-slate-600">조양방직에 주차해 둔 채 도보(10~15분)로 바로 이동 가능하여 단체 이동 피로가 없습니다.</p>
+                <ul class="list-disc list-inside text-slate-500 text-[11px] space-y-0.5">
+                  <li><strong>대한성공회 강화성당:</strong> 한국 전통 한옥 양식의 서양 바실리카 성당 (전망 우수)</li>
+                  <li><strong>용흥궁:</strong> 조선 철종 임금이 왕위에 오르기 전 살던 고즈넉한 전통 가옥</li>
+                  <li><strong>고려궁지:</strong> 몽골 침략에 맞선 고려 대몽항쟁기 왕궁 터와 외규장각</li>
+                </ul>
+              </div>
+
+              <!-- 옵션 2 상세 카드 -->
+              <div id="desc-opt2" class="hidden bg-white p-3 rounded-xl border border-slate-200 text-xs space-y-1.5">
+                <div class="font-bold text-slate-800 flex items-center text-emerald-800">
+                  <i data-lucide="waves" class="w-4 h-4 mr-1 text-emerald-600"></i> 옵션 2: 광성보 해안 둘레길 산책
+                </div>
+                <p class="text-slate-600">조양방직에서 차량으로 약 20분 이동. 탁 트인 염하 바다와 울창한 숲길을 함께 산책합니다.</p>
+                <ul class="list-disc list-inside text-slate-500 text-[11px] space-y-0.5">
+                  <li><strong>동선 이점:</strong> 저녁 식당(농가의 식탁)으로 내려오는 해안길에 위치하여 귀가 전 이동이 편리</li>
+                  <li><strong>주요 경관:</strong> 안해루 ➔ 광성돈대 ➔ 손돌목돈대 ➔ 용두돈대로 이어지는 강화 대표 해안 요새 절경</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. 저녁 만찬 (15인 전원) -->
+          <div class="relative group">
+            <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-white border-4 border-emerald-600"></div>
+            <div class="bg-emerald-50/60 rounded-2xl p-4 border-2 border-emerald-300 shadow-sm">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 text-xs font-bold rounded-md bg-emerald-100 text-emerald-900">17:35 ~ 19:00 (85분)</span>
+                <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-700 text-white">저녁 만찬 (15인 전원!)</span>
+              </div>
+              <h4 class="text-base font-bold text-slate-900 mt-2 flex items-center justify-between">
+                <span>농가의 식탁 (선원면 해안도로)</span>
+                <span class="text-xs text-slate-500">차량 15~20분 이동</span>
+              </h4>
+              <p class="text-xs text-slate-700 mt-1">강화 로컬 구운야채 불고기 정식 솥밥 + 테이블별 시금치 바질 파스타 쉐어 + 신선 야채 셀프바</p>
+              <div class="mt-2.5 flex items-center text-xs text-emerald-900 font-medium">
+                <i data-lucide="check-circle" class="w-3.5 h-3.5 mr-1 text-emerald-600"></i> 15인 단체 예약 완료 필수 (바다 조망 창가석)
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. 귀가 -->
+          <div class="relative group">
+            <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-white border-4 border-slate-300"></div>
+            <div class="bg-white rounded-2xl p-3.5 border border-slate-200/80 shadow-sm flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold text-slate-500">19:00 ~</span>
+                <h4 class="text-sm font-bold text-slate-800">일정 종료 및 서울/집결지 귀가 (15인 전원)</h4>
+              </div>
+              <i data-lucide="home" class="w-5 h-5 text-slate-400"></i>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 우측: 실시간 예산 시뮬레이터 (lg:col-span-5) -->
+      <section id="budget-section" class="lg:col-span-5 space-y-6">
+        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-md sticky top-24 space-y-5">
+
+          <!-- 헤더 -->
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div class="flex items-center space-x-2">
+              <div class="p-2 bg-amber-100 text-amber-700 rounded-lg">
+                <i data-lucide="calculator" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-slate-900">실시간 예산 계산기 (15인 전원)</h3>
+                <p class="text-xs text-slate-500">면제자 없음 · 전원 회비 납부 기준</p>
+              </div>
+            </div>
+            <button onclick="resetBudgetToDefault()" class="text-[11px] text-slate-400 hover:text-slate-600 underline no-print">초기화</button>
+          </div>
+
+          <!-- 1. 수입 (회비 모금 현황 - 15명 전원) -->
+          <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200/70 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-700 flex items-center">
+                <i data-lucide="wallet" class="w-3.5 h-3.5 mr-1 text-sky-600"></i> 회비 모금 설정 (총 15명 전원)
+              </span>
+              <span class="text-xs font-bold text-sky-700" id="total-income-display">730,000원</span>
+            </div>
+
+            <!-- 특별회비 4명 -->
+            <div class="space-y-1">
+              <div class="flex justify-between text-xs">
+                <span class="text-slate-600">특별 회비 (<input type="number" id="lead-count" value="4" min="0" max="15" onchange="syncMembers(1)" class="w-10 px-1 border rounded text-center font-bold text-slate-700">명)</span>
+                <span class="font-semibold text-slate-800"><span id="lead-fee-text">100,000</span>원 / 인</span>
+              </div>
+              <input type="range" id="lead-fee-slider" min="50000" max="150000" step="5000" value="100000" oninput="updateCalculations()" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-sky-600">
+            </div>
+
+            <!-- 일반회비 11명 (인당 30,000원 고정) -->
+            <div class="space-y-1">
+              <div class="flex justify-between text-xs">
+                <span class="text-slate-600">일반 회원 (<input type="number" id="member-count" value="11" min="0" max="15" onchange="syncMembers(2)" class="w-10 px-1 border rounded text-center font-bold text-slate-700">명)</span>
+                <span class="font-semibold text-slate-800"><span id="member-fee-text">30,000</span>원 / 인</span>
+              </div>
+              <p class="text-[11px] text-slate-500">일반 회비는 인당 30,000원으로 고정되어 있습니다.</p>
+              <input type="hidden" id="member-fee-slider" value="30000">
+            </div>
+
+            <div class="text-[11px] text-slate-600 pt-1.5 border-t border-slate-200/60 flex justify-between items-center font-medium">
+              <span class="text-emerald-700 flex items-center">
+                <i data-lucide="check" class="w-3.5 h-3.5 mr-1"></i> 면제 대상 0명 (전원 납부)
+              </span>
+              <span>총 납부 인원: <strong class="text-slate-800" id="total-payers-display">15명</strong></span>
+            </div>
+          </div>
+
+          <!-- 2. 지출 세부 단가 조정 (15명 전원 기준) -->
+          <div class="space-y-3 text-xs">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-slate-700 flex items-center">
+                <i data-lucide="receipt" class="w-3.5 h-3.5 mr-1 text-amber-600"></i> 지출 항목 단가 (전원 15명 적용)
+              </span>
+              <span class="text-[11px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded">15명 전원 반영</span>
+            </div>
+
+            <!-- 점심 (15명) -->
+            <div class="flex items-center justify-between py-1 border-b border-slate-100">
+              <div>
+                <div class="font-semibold text-slate-800">점심 (풀하우스)</div>
+                <div class="text-[11px] text-slate-400">막국수+만두 (15명)</div>
+              </div>
+              <div class="flex items-center space-x-1">
+                <input type="number" id="cost-lunch" value="15000" step="1000" oninput="updateCalculations()" class="w-20 px-2 py-1 text-right text-xs border rounded-lg font-semibold text-slate-700">
+                <span class="text-slate-500">원</span>
+              </div>
+            </div>
+
+            <!-- 카페 (15명) -->
+            <div class="flex items-center justify-between py-1 border-b border-slate-100">
+              <div>
+                <div class="font-semibold text-slate-800">카페 (조양방직)</div>
+                <div class="text-[11px] text-slate-400">음료+베이커리 (15명)</div>
+              </div>
+              <div class="flex items-center space-x-1">
+                <input type="number" id="cost-cafe" value="9000" step="1000" oninput="updateCalculations()" class="w-20 px-2 py-1 text-right text-xs border rounded-lg font-semibold text-slate-700">
+                <span class="text-slate-500">원</span>
+              </div>
+            </div>
+
+            <!-- 저녁 (15명) -->
+            <div class="flex items-center justify-between py-1 border-b border-slate-100">
+              <div>
+                <div class="font-semibold text-slate-800">저녁 (농가의 식탁)</div>
+                <div class="text-[11px] text-slate-400">불고기+파스타 (15명)</div>
+              </div>
+              <div class="flex items-center space-x-1">
+                <input type="number" id="cost-dinner" value="24000" step="1000" oninput="updateCalculations()" class="w-20 px-2 py-1 text-right text-xs border rounded-lg font-semibold text-slate-700">
+                <span class="text-slate-500">원</span>
+              </div>
+            </div>
+
+            <!-- 주차비/부대비용 (총액) -->
+            <div class="flex items-center justify-between py-1 border-b border-slate-100">
+              <div>
+                <div class="font-semibold text-slate-800">전등사 주차비 등</div>
+                <div class="text-[11px] text-slate-400">차량 3~4대 합산 총액</div>
+              </div>
+              <div class="flex items-center space-x-1">
+                <input type="number" id="cost-parking" value="10000" step="2000" oninput="updateCalculations()" class="w-20 px-2 py-1 text-right text-xs border rounded-lg font-semibold text-slate-700">
+                <span class="text-slate-500">원</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. 실시간 결과 요약 카드 -->
+          <div id="balance-card" class="rounded-2xl p-4 border border-emerald-300 bg-emerald-50/60 transition-colors space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-slate-600 font-medium">예상 총 지출 합계 (15인):</span>
+              <span class="text-sm font-bold text-slate-900" id="total-expense-display">730,000원</span>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-slate-200">
+              <span class="text-xs font-bold text-emerald-800" id="balance-label">예산 잔액 (흑자/여유):</span>
+              <span class="text-lg font-extrabold text-emerald-700" id="balance-amount">+0원</span>
+            </div>
+            <p class="text-[11px] leading-relaxed pt-1" id="balance-msg">
+              예산이 <strong class="text-emerald-700">0원</strong> 여유가 있습니다! 비상금 및 간식비로 활용 가능합니다.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 하단 체크포인트 & 안내 노트 -->
+    <section class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-4">
+      <div class="flex items-center space-x-2">
+        <i data-lucide="info" class="w-5 h-5 text-sky-600"></i>
+        <h3 class="text-base font-bold text-slate-900">당일 필수 확인 및 진행 체크포인트</h3>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-600">
+        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100">
+          <div class="font-bold text-slate-800 mb-1 flex items-center text-amber-700">
+            <i data-lucide="users" class="w-3.5 h-3.5 mr-1"></i> 점심 & 저녁 15인 전원 예약
+          </div>
+          풀하우스(점심 15인) 및 농가의 식탁(저녁 15인) 모두 15인 단체석 확정이 필요합니다. 특히 농가의 식탁은 바다 조망 테이블 4인 기준 4개 테이블로 사전 예약 권장합니다.
+        </div>
+        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100">
+          <div class="font-bold text-slate-800 mb-1 flex items-center text-indigo-700">
+            <i data-lucide="coffee" class="w-3.5 h-3.5 mr-1"></i> 조양방직 15인 자리 선점
+          </div>
+          조양방직은 주말 오후 방문객이 많으므로 도착 즉시 중앙 홀 긴 테이블에 15인 자리를 확보한 후 카운터와 베이커리 구역으로 나누어 주문하는 것이 효율적입니다.
+        </div>
+        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100">
+          <div class="font-bold text-slate-800 mb-1 flex items-center text-emerald-700">
+            <i data-lucide="map" class="w-3.5 h-3.5 mr-1"></i> 오후 탐방 동선 유연성
+          </div>
+          도보 피로도가 높으면 조양방직 바로 옆 원도심(옵션 1)을 여유롭게 산책하고, 시원한 서해 바닷바람을 쐬고 싶다면 광성보(옵션 2)로 이동하세요.
+        </div>
+      </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="text-center text-xs text-slate-400 py-4 border-t border-slate-200 no-print">
+      강화도 워크숍 & 나들이 가이드 · 단체 15인 전원 코스 최적화
+    </footer>
+
+  </main>
+
+  <script>
+    // Lucide 아이콘 초기화
+    lucide.createIcons();
+
+    // 옵션 탭 전환 로직
+    function selectOption(opt) {
+      const tab1 = document.getElementById('tab-opt1');
+      const tab2 = document.getElementById('tab-opt2');
+      const desc1 = document.getElementById('desc-opt1');
+      const desc2 = document.getElementById('desc-opt2');
+      const check1 = document.querySelector('.opt1-check');
+      const check2 = document.querySelector('.opt2-check');
+
+      if (opt === 1) {
+        tab1.className = "p-2.5 rounded-xl border text-left transition-all bg-white border-sky-500 shadow-sm";
+        tab2.className = "p-2.5 rounded-xl border text-left transition-all bg-white/60 border-slate-200 opacity-70";
+        desc1.classList.remove('hidden');
+        desc2.classList.add('hidden');
+        check1.classList.remove('text-transparent');
+        check1.classList.add('text-sky-600');
+        check2.classList.remove('text-sky-600');
+        check2.classList.add('text-transparent');
+      } else {
+        tab1.className = "p-2.5 rounded-xl border text-left transition-all bg-white/60 border-slate-200 opacity-70";
+        tab2.className = "p-2.5 rounded-xl border text-left transition-all bg-white border-emerald-500 shadow-sm";
+        desc1.classList.add('hidden');
+        desc2.classList.remove('hidden');
+        check2.classList.remove('text-transparent');
+        check2.classList.add('text-emerald-600');
+        check1.classList.remove('text-sky-600');
+        check1.classList.add('text-transparent');
+      }
+    }
+
+    // 15인 총 인원 동기화 (면제 0명)
+    function syncMembers(changed) {
+      const leadCountEl = document.getElementById('lead-count');
+      const memberCountEl = document.getElementById('member-count');
+      let lead = parseInt(leadCountEl.value) || 0;
+      let member = parseInt(memberCountEl.value) || 0;
+
+      if (changed === 1) {
+        if (lead > 15) lead = 15;
+        if (lead < 0) lead = 0;
+        leadCountEl.value = lead;
+        memberCountEl.value = 15 - lead;
+      } else {
+        if (member > 15) member = 15;
+        if (member < 0) member = 0;
+        memberCountEl.value = member;
+        leadCountEl.value = 15 - member;
+      }
+      updateCalculations();
+    }
+
+    // 예산 실시간 계산 로직 (15명 전원 기준)
+    function updateCalculations() {
+      const leadCount = parseInt(document.getElementById('lead-count').value) || 0;
+      const memberCount = parseInt(document.getElementById('member-count').value) || 0;
+      const leadFee = parseInt(document.getElementById('lead-fee-slider').value) || 0;
+      const memberFee = 30000;
+      document.getElementById('member-fee-slider').value = memberFee;
+
+      // 슬라이더 텍스트 반영
+      document.getElementById('lead-fee-text').innerText = leadFee.toLocaleString();
+      document.getElementById('member-fee-text').innerText = memberFee.toLocaleString();
+      document.getElementById('total-payers-display').innerText = (leadCount + memberCount) + '명';
+
+      // 수입 합계 (면제 없이 전원 납부)
+      const totalIncome = (leadFee * leadCount) + (memberFee * memberCount);
+      document.getElementById('total-income-display').innerText = totalIncome.toLocaleString() + '원';
+
+      // 지출 단가 및 인원 (15명 전원 기준)
+      const lunchCost = parseInt(document.getElementById('cost-lunch').value) || 0;
+      const cafeCost = parseInt(document.getElementById('cost-cafe').value) || 0;
+      const dinnerCost = parseInt(document.getElementById('cost-dinner').value) || 0;
+      const parkingCost = parseInt(document.getElementById('cost-parking').value) || 0;
+
+      // 15명 전원 적용!
+      const totalExpense = (lunchCost * 15) + (cafeCost * 15) + (dinnerCost * 15) + parkingCost;
+      document.getElementById('total-expense-display').innerText = totalExpense.toLocaleString() + '원';
+
+      // 잔액 (수입 - 지출)
+      const balance = totalIncome - totalExpense;
+      const balanceAmountEl = document.getElementById('balance-amount');
+      const balanceCard = document.getElementById('balance-card');
+      const balanceLabel = document.getElementById('balance-label');
+      const balanceMsg = document.getElementById('balance-msg');
+
+      if (balance >= 0) {
+        balanceCard.className = "rounded-2xl p-4 border border-emerald-300 bg-emerald-50/60 transition-colors space-y-2.5";
+        balanceLabel.innerText = "예산 잔액 (흑자/여유):";
+        balanceLabel.className = "text-xs font-bold text-emerald-800";
+        balanceAmountEl.className = "text-lg font-extrabold text-emerald-700";
+        balanceAmountEl.innerText = "+" + balance.toLocaleString() + "원";
+        balanceMsg.innerHTML = `예산이 <strong class="text-emerald-700">${balance.toLocaleString()}원</strong> 여유가 있습니다! 비상금 및 간식비로 활용 가능합니다.`;
+      } else {
+        balanceCard.className = "rounded-2xl p-4 border border-rose-300 bg-rose-50/60 transition-colors space-y-2.5";
+        balanceLabel.innerText = "예산 잔액 (부족분):";
+        balanceLabel.className = "text-xs font-bold text-rose-800";
+        balanceAmountEl.className = "text-lg font-extrabold text-rose-600";
+        balanceAmountEl.innerText = balance.toLocaleString() + "원";
+        balanceMsg.innerHTML = `현재 설정으로는 예산이 <strong class="text-rose-600">${Math.abs(balance).toLocaleString()}원</strong> 부족합니다. 일반 회비는 인당 30,000원으로 고정되어 있습니다.`;
+      }
+    }
+
+    // 기본값 초기화 (특별 4명 10만 + 일반 11명 3만 고정)
+    function resetBudgetToDefault() {
+      document.getElementById('lead-count').value = 4;
+      document.getElementById('member-count').value = 11;
+      document.getElementById('lead-fee-slider').value = 100000;
+      document.getElementById('member-fee-slider').value = 30000;
+      document.getElementById('cost-lunch').value = 15000;
+      document.getElementById('cost-cafe').value = 9000;
+      document.getElementById('cost-dinner').value = 24000;
+      document.getElementById('cost-parking').value = 10000;
+      updateCalculations();
+    }
+
+    // 페이지 로드 시 초기 계산 실행
+    window.addEventListener('DOMContentLoaded', () => {
+      updateCalculations();
+    });
+  </script>
+</body>
+</html>
